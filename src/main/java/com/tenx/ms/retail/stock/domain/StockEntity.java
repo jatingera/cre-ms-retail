@@ -3,8 +3,8 @@ package com.tenx.ms.retail.stock.domain;
 import com.tenx.ms.commons.auditing.AbstractAuditEntity;
 import com.tenx.ms.retail.product.domain.ProductEntity;
 import com.tenx.ms.retail.store.domain.StoreEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.Column;
@@ -18,9 +18,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@EqualsAndHashCode(callSuper=false)
+//@EqualsAndHashCode(callSuper=false)
 @Table(name = "stock", uniqueConstraints=@UniqueConstraint(columnNames={"store_id", "product_id"}))
-@Data
+@Getter
+@Setter
 public class StockEntity extends AbstractAuditEntity {
 
     @Id

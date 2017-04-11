@@ -2,7 +2,8 @@ package com.tenx.ms.retail.order.domain;
 
 import com.tenx.ms.commons.auditing.AbstractAuditEntity;
 import com.tenx.ms.retail.constant.OrderStatusConstant;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,8 +20,9 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Data
 @Table(name = "orders")
+@Getter
+@Setter
 public class OrderEntity extends AbstractAuditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

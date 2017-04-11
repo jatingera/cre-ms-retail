@@ -1,7 +1,8 @@
 package com.tenx.ms.retail.order.domain;
 
 import com.tenx.ms.commons.auditing.AbstractAuditEntity;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +15,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Data
 @Table(name = "order_item")
+@Getter
+@Setter
 public class OrderItemEntity extends AbstractAuditEntity {
 
 

@@ -3,7 +3,8 @@ package com.tenx.ms.retail.product.domain;
 import com.tenx.ms.commons.auditing.AbstractAuditEntity;
 import com.tenx.ms.retail.stock.domain.StockEntity;
 import com.tenx.ms.retail.store.domain.StoreEntity;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,8 +19,9 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-@Data
 @Table(name = "product")
+@Getter
+@Setter
 public class ProductEntity extends AbstractAuditEntity {
 
     @Id

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.5.1" timestamp="2017-03-24T19:01:42.509">
+<file name="/Users/jgera.ctr/Documents/JAVA/ms-bitbucket/cre-ms-retail/src/main/java/com/tenx/ms/retail/store/rest/StoreController.java">
+<violation beginline="39" endline="39" begincolumn="14" endcolumn="21" rule="VariableNamingConventions" ruleset="Naming" package="com.tenx.ms.retail.store.rest" class="StoreController" method="createStore" variable="store_id" externalInfoUrl="https://pmd.github.io/pmd-5.5.1/pmd-java/rules/java/naming.html#VariableNamingConventions" priority="1">
+Only variables that are final should contain underscores (except for underscores in standard prefix/suffix), 'store_id' is not final.
+</violation>
+<violation beginline="40" endline="40" begincolumn="9" endcolumn="24" rule="UnnecessaryLocalBeforeReturn" ruleset="Design" package="com.tenx.ms.retail.store.rest" class="StoreController" method="createStore" externalInfoUrl="https://pmd.github.io/pmd-5.5.1/pmd-java/rules/java/design.html#UnnecessaryLocalBeforeReturn" priority="3">
+Consider simply returning the value vs storing it in local variable 'store_id'
+</violation>
+</file>
+<file name="/Users/jgera.ctr/Documents/JAVA/ms-bitbucket/cre-ms-retail/src/main/java/com/tenx/ms/retail/store/service/StoreService.java">
+<violation beginline="14" endline="15" begincolumn="5" endcolumn="36" rule="DefaultPackage" ruleset="Controversial" package="com.tenx.ms.retail.store.service" class="StoreService" externalInfoUrl="https://pmd.github.io/pmd-5.5.1/pmd-java/rules/java/controversial.html#DefaultPackage" priority="3">
+Use explicit scoping instead of the default package private level
+</violation>
+</file>
+</pmd>

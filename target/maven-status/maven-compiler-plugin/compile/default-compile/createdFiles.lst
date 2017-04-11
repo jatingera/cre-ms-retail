@@ -1,0 +1,6 @@
+com/tenx/ms/retail/store/rest/dto/Store.class
+com/tenx/ms/retail/store/rest/StoreController.class
+com/tenx/ms/retail/RetailServiceApp.class
+com/tenx/ms/retail/store/service/StoreService.class
+com/tenx/ms/retail/store/domain/StoreEntity.class
+com/tenx/ms/retail/store/repository/StoreRepository.class

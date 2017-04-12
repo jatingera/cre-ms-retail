@@ -5,7 +5,6 @@ import com.tenx.ms.retail.store.domain.StoreEntity;
 import com.tenx.ms.retail.store.repository.StoreRepository;
 import com.tenx.ms.retail.store.rest.dto.Store;
 import com.tenx.ms.retail.util.RetailUtil;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +42,7 @@ public class StoreService {
 
     public Store getStore(String store) {
 
-        ModelMapper modelMapper = new ModelMapper();
-        StoreEntity storeEntity = null;
+       StoreEntity storeEntity = null;
 
         if (RetailUtil.isNumeric(store)) {
             storeEntity = storeRepository.findOneById(Long.valueOf(store)).orElseThrow(() -> new NoSuchElementException("No store found with this id"));

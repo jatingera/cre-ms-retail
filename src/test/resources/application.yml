@@ -5,6 +5,23 @@ spring:
     cloud:
         discovery:
             enabled: false
+    jpa:
+            show-sql: true
+            hibernate:
+                ddl-auto: create-drop
+    datasource:
+          url: jdbc:mysql://localhost:11888/sspms?autoReconnect=true&tinyInt1isBit=false&useSSL=false&zeroDateTimeBehavior=convertToNull
+          username: root
+          password: tenxdev
+          driver-class-name: com.mysql.jdbc.Driver
+          jpa:
+            hibernate:
+            ddl-auto: create-drop
 
 server:
-   port: 0
+  port: 9222
+  contextPath: /retail
+
+logging.level.com.tenx.ms.gls: DEBUG
+flyway.locations: classpath:db/migration
+flyway.baselineOnMigrate: false

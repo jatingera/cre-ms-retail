@@ -74,18 +74,29 @@ public class OrderService {
             if(diffQuantity < 0) {
                 // If item out of stock then set available counts 0 and update order item with backordered quantity.
                 stockEntity.setCount(0);
+
+                // placed order for available items
+                if(availableQuantity > 0) {
+                    orderedItemDetail = updateOrderItemDetails(order.getOrderId(),item.getProductId(), availableQuantity, false);
+                    orderedSummary.add(orderedItemDetail);
+                }
+
+                //  backordered the not available items
                 int backOrderItems = Math.abs(diffQuantity);
-                // update the item summary
                 orderedItemDetail = updateOrderItemDetails(order.getOrderId(),item.getProductId(), backOrderItems, true);
+                orderedSummary.add(orderedItemDetail);
+
+
             }
             else {
                 stockEntity.setCount(diffQuantity);
                 // update the item summary
                 orderedItemDetail = updateOrderItemDetails(order.getOrderId(), item.getProductId(), desiredQuantity, false);
+                orderedSummary.add(orderedItemDetail);
             }
 
             stockEntitiesToUpdate.add(stockEntity);
-            orderedSummary.add(orderedItemDetail);
+
 
         }
 

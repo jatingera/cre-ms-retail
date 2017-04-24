@@ -2,24 +2,20 @@ package com.tenx.ms.retail;
 
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 //import com.tenx.ms.commons.auditing.AbstractAuditEntity
 
 /**
  * Spring Boot Application Initialization class for retail MicroService
  */
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = {"com.tenx.ms.commons", "com.tenx.ms.retail"})
 @SuppressWarnings("PMD.UseUtilityClass")
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
-@EntityScan(basePackageClasses = {RetailServiceApp.class, Jsr310JpaConverters.class})
 public class RetailServiceApp {
 
     /**

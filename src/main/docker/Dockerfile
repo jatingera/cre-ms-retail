@@ -1,6 +1,6 @@
 FROM tenxtech/java:8
 VOLUME /tmp
-EXPOSE 9222
+EXPOSE 9869
 ADD cre-ms-retail.jar app.jar
 COPY run.sh /usr/bin/run.sh
 

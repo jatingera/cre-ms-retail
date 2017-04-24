@@ -3,6 +3,7 @@ package com.tenx.ms.retail.order.service;
 import com.tenx.ms.commons.util.converter.EntityConverter;
 import com.tenx.ms.retail.constant.OrderStatusConstant;
 import com.tenx.ms.retail.order.domain.OrderEntity;
+import com.tenx.ms.retail.order.domain.OrderItemEntity;
 import com.tenx.ms.retail.order.repository.OrderRepository;
 import com.tenx.ms.retail.order.rest.dto.Order;
 import com.tenx.ms.retail.order.rest.dto.OrderItem;
@@ -47,7 +48,8 @@ public class OrderService {
             orderResponse.setOrderId(orderEntity.getOrderId());
         }
 
-        return  orderResponse;
+        return  ORDER_CONVERTER.toT1(orderEntity);
+
     }
 
     private Order orderProcess(Long storeId, Order order) {
@@ -58,32 +60,43 @@ public class OrderService {
 
             List<OrderItem> orderedSummary = new ArrayList<OrderItem>();
 
+
+
         for (OrderItem item: orderedItemList) {
 
             StockEntity stockEntity = stockRepository.findOneByProductIdAndStoreId(item.getProductId(), storeId)
-                    .orElseThrow(() -> new NoSuchElementException("Invalid product and stock id"));
+                    .orElseThrow(null);
 
-            Integer desiredQuantity = item.getQuantity();
+            int desiredQuantity = item.getQuantity();
 
-            Integer availableQuantity = stockEntity.getCount();
+            int availableQuantity = stockEntity.getCount();
 
-            Integer diffQuantity = availableQuantity - desiredQuantity;
+            int diffQuantity = availableQuantity - desiredQuantity;
 
             OrderItem   orderedItemDetail;
+//fixed - PMD error- Avoid instantiating new objects inside loops
+       //     StockEntity stockEntityCopy = stockEntity;
+//            StockEntity stockEntity1 = new StockEntity();
+//            stockEntity1.setStoreId(stockEntity.getStoreId());
+//            stockEntity1.setProductId(stockEntity.getProductId());
+//            stockEntity1.setStoreEntity(stockEntity.getStoreEntity());
+//            stockEntity1.setProductEntity(stockEntity.getProductEntity());
+//            stockEntity1.setCount(stockEntity.getCount());
 
             if(diffQuantity < 0) {
                 // If item out of stock then set available counts 0 and update order item with backordered quantity.
                 stockEntity.setCount(0);
+               //stockEntity1.setCount(0);
 
                 // placed order for available items
                 if(availableQuantity > 0) {
-                    orderedItemDetail = updateOrderItemDetails(order.getOrderId(),item.getProductId(), availableQuantity, false);
+                    orderedItemDetail = updateOrderItemDetails(item.getProductId(), availableQuantity, false);
                     orderedSummary.add(orderedItemDetail);
                 }
 
                 //  backordered the not available items
                 int backOrderItems = Math.abs(diffQuantity);
-                orderedItemDetail = updateOrderItemDetails(order.getOrderId(),item.getProductId(), backOrderItems, true);
+                orderedItemDetail = updateOrderItemDetails(item.getProductId(), backOrderItems, true);
                 orderedSummary.add(orderedItemDetail);
 
 
@@ -91,7 +104,7 @@ public class OrderService {
             else {
                 stockEntity.setCount(diffQuantity);
                 // update the item summary
-                orderedItemDetail = updateOrderItemDetails(order.getOrderId(), item.getProductId(), desiredQuantity, false);
+                orderedItemDetail = updateOrderItemDetails(item.getProductId(), desiredQuantity, false);
                 orderedSummary.add(orderedItemDetail);
             }
 
@@ -124,17 +137,17 @@ public class OrderService {
        }
 
         OrderEntity orderEntitySave = ORDER_CONVERTER.toT2(order);
-        orderEntitySave.getProductItems().stream().forEach(e -> e.setOrder(orderEntitySave));
-//          List<OrderItemEntity> orderItemEntityList = orderEntitySave.getProductItems();
-//
-//        for (OrderItemEntity orderItemEntity: orderItemEntityList) {
-//            orderItemEntity.setOrder(orderEntitySave);
-//
-//        }
+      //  orderEntitySave.getProductItems().stream().forEach(e -> e.setOrder(orderEntitySave));
+          List<OrderItemEntity> orderItemEntityList = orderEntitySave.getProductItems();
+
+        for (OrderItemEntity orderItemEntity: orderItemEntityList) {
+            orderItemEntity.setOrder(orderEntitySave);
+
+        }
         return  orderRepository.save(orderEntitySave);
     }
 
-    private OrderItem updateOrderItemDetails(Long orderId,Long productId, Integer quantity, Boolean isItemBackordered) {
+    private OrderItem updateOrderItemDetails(Long productId, Integer quantity, Boolean isItemBackordered) {
 
         OrderItem itemOrder = new OrderItem();
         itemOrder.setProductId(productId);

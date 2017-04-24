@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile.dev
     command: mvn spring-boot:run -Dspring.profiles.active=dev,docker-mysql
     ports:
-      - "9222:9222"
+      - "9869:9869"
     depends_on:
       - db
     volumes:

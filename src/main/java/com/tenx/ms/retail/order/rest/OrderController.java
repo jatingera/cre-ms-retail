@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
 
     @ApiOperation("create a new order")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Store create sucessfully"),

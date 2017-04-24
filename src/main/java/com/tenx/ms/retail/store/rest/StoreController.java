@@ -36,10 +36,9 @@ public class StoreController {
             @ApiResponse(code = 412, message = "Precondition failiure"),
             @ApiResponse(code = 500, message = "Internal service error") })
     @RequestMapping(method = RequestMethod.POST, consumes = { "application/json" })
-    public Long createStore(@ApiParam(name = "store", value = "fields for creating store", required = true) @RequestBody @Validated Store store) {
+    public Store createStore(@ApiParam(name = "store", value = "fields for creating store", required = true) @RequestBody @Validated Store store) {
 
-        Long store_id = storeService.createStore(store);
-        return store_id;
+        return storeService.createStore(store);
     }
 
 
@@ -51,8 +50,7 @@ public class StoreController {
     @RequestMapping(value = "/{storeField}", method = RequestMethod.GET, consumes = { "application/json" })
     public Store getStore(@ApiParam(name = "storeField", value = "Name or Id of the store", required = true) @PathVariable @Validated String storeField) {
 
-             Store store = storeService.getStore(storeField);
-             return store;
+             return storeService.getStore(storeField);
     }
 
     @ApiOperation("Delete a store")

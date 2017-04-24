@@ -1,12 +1,10 @@
 package com.tenx.ms.retail.stock.service;
 
 import com.tenx.ms.commons.util.converter.EntityConverter;
-import com.tenx.ms.retail.product.domain.ProductEntity;
 import com.tenx.ms.retail.product.repository.ProductRepository;
 import com.tenx.ms.retail.stock.domain.StockEntity;
 import com.tenx.ms.retail.stock.repository.StockRepository;
 import com.tenx.ms.retail.stock.rest.dto.Stock;
-import com.tenx.ms.retail.store.domain.StoreEntity;
 import com.tenx.ms.retail.store.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,11 +35,9 @@ public class StockService {
         }
         else
         {
-            StoreEntity storeEntity = storeRepository.findOneById(storeId).orElseThrow(() -> new NoSuchElementException("store details not found"));
-//            stockEntity.setStore(storeEntity);
-//
-            ProductEntity productEntity  = productRepository.findOneByProductIdAndStoreId(productId, storeId).orElseThrow(() -> new NoSuchElementException("product not exist under this store"));;
-//          stockEntity.setProduct(productEntity);
+            storeRepository.findOneById(storeId).orElseThrow(() -> new NoSuchElementException("store details not found"));
+
+            productRepository.findOneByProductIdAndStoreId(productId, storeId).orElseThrow(() -> new NoSuchElementException("product not exist under this store"));
 
             StockEntity stock = new StockEntity();
             stock.setStoreId(storeId);

@@ -1,12 +1,11 @@
 package com.tenx.ms.retail.product.service;
 
+import com.tenx.ms.commons.rest.dto.ResourceCreated;
 import com.tenx.ms.commons.util.converter.EntityConverter;
 import com.tenx.ms.retail.product.domain.ProductEntity;
 import com.tenx.ms.retail.product.repository.ProductRepository;
 import com.tenx.ms.retail.product.rest.dto.Product;
-import com.tenx.ms.retail.store.domain.StoreEntity;
 import com.tenx.ms.retail.store.repository.StoreRepository;
-import com.tenx.ms.retail.util.RetailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +13,27 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import static com.tenx.ms.retail.util.RetailUtil.isNumeric;
+
 @Service
 public class ProductService {
 
     private static  final EntityConverter<ProductEntity, Product> PRODUCT_CONVERTER = new EntityConverter<>(ProductEntity.class, Product.class);
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Autowired
-    StoreRepository storeRepository;
+    private StoreRepository storeRepository;
 
-    public Long addProduct(Product product, Long storeId) {
+    public ResourceCreated<Long> addProduct(Product product, Long storeId) {
 
-        StoreEntity storeEntity = storeRepository.findOneById(storeId).orElseThrow(() -> new NoSuchElementException("invalid store id"));
+        storeRepository.findOneById(storeId).orElseThrow(() -> new NoSuchElementException("invalid store id " + storeId));
 
         ProductEntity productEntity = PRODUCT_CONVERTER.toT1(product);
-        //ProductEntity productEntity = modelMapper.map(product, ProductEntity.class);
+
         productEntity.setStoreId(storeId);
-        return productRepository.save(productEntity).getProductId();
+        return new ResourceCreated<Long>(productRepository.save(productEntity).getProductId());
     }
 
     public List<Product> getListOfProducts(Long storeId) {
@@ -47,7 +48,7 @@ public class ProductService {
 
     public Product getProductByIdOrName(String productField, Long storeId) {
         ProductEntity productEntity = new ProductEntity();
-        if(RetailUtil.isNumeric(productField)) {
+        if(isNumeric(productField)) {
           productEntity = productRepository.findOneByProductIdAndStoreId(Long.valueOf(productField), storeId).orElseThrow(() -> new NoSuchElementException("store and product id not found"));
         }
         else

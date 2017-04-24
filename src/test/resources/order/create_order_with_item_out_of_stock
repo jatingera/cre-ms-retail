@@ -1,0 +1,16 @@
+{
+  "email": "test@test.com",
+  "first_name": "Jatin",
+  "last_name": "gera",
+  "phone": 3333333333,
+  "product_items": [
+    {
+      "quantity": 10,
+      "product_id": 1
+    },
+    {
+      "quantity": 5,
+      "product_id": 2
+    }
+  ]
+}

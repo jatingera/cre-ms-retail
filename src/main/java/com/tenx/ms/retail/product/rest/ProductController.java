@@ -1,6 +1,7 @@
 package com.tenx.ms.retail.product.rest;
 
 import com.tenx.ms.commons.rest.RestConstants;
+import com.tenx.ms.commons.rest.dto.ResourceCreated;
 import com.tenx.ms.retail.product.rest.dto.Product;
 import com.tenx.ms.retail.product.service.ProductService;
 import io.swagger.annotations.ApiOperation;
@@ -22,14 +23,14 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     @ApiOperation("Add a product")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Store create sucessfully"),
             @ApiResponse(code = 412, message = "Precondition failiure"),
             @ApiResponse(code = 500, message = "Internal service error") })
     @RequestMapping(method = RequestMethod.POST, consumes = { "application/json" })
-    public Long addProduct(@ApiParam(name = "storeId", value = "id of the store", required = true) @PathVariable @Validated Long storeId, @ApiParam(name = "product", required = true, value = "product details to be created") @Validated @RequestBody
+    public ResourceCreated<Long> addProduct(@ApiParam(name = "storeId", value = "id of the store", required = true) @PathVariable @Validated Long storeId, @ApiParam(name = "product", required = true, value = "product details to be created") @Validated @RequestBody
             Product product) {
 
        return productService.addProduct(product, storeId);

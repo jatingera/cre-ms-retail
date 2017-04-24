@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 @Data
 public class Stock {
@@ -12,7 +11,6 @@ public class Stock {
 
     @ApiModelProperty("total count in stock")
     @Min(value = 0)
-    @NotNull
     private int count;
 
     public int getCount() {
@@ -22,6 +20,5 @@ public class Stock {
     public void setCount(int count) {
         this.count = count;
     }
-
 
 }

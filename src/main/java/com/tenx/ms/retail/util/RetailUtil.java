@@ -1,9 +1,11 @@
 package com.tenx.ms.retail.util;
 
-public class RetailUtil {
+public final class RetailUtil {
 
-      public static boolean isNumeric(String input) {
+    private RetailUtil()  // Prevents instantiation
+    { }
+
+    public static boolean isNumeric(String input) {
           return input.matches("\\d+");
       }
-
 }

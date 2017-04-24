@@ -5,10 +5,6 @@ spring:
     cloud:
         discovery:
             enabled: false
-    jpa:
-            show-sql: true
-            hibernate:
-                ddl-auto: create-drop
     datasource:
           url: jdbc:mysql://localhost:11888/sspms?autoReconnect=true&tinyInt1isBit=false&useSSL=false&zeroDateTimeBehavior=convertToNull
           username: root
@@ -16,11 +12,26 @@ spring:
           driver-class-name: com.mysql.jdbc.Driver
           jpa:
             hibernate:
-            ddl-auto: create-drop
+              ddl-auto: create-drop
+            show-sql: true
 
 server:
-  port: 9222
+  port: 0
   contextPath: /retail
+
+oauth2:
+   resource:
+      jwt:
+         keyValue: |
+            -----BEGIN PUBLIC KEY-----
+            MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmhAyldeztFrQGG1gYKe1
+            igqPt9kpoFBzk+66m/rlqUkahwB2aAfJJIUH7iQnKkX9qNTiu1m9ux/qBSMSzHs5
+            ZwN7DLjugwUy0XDt98QTPlLLBJALLibJCz+ag+wiMBW4GF14mHGg3sDjnrc70t3j
+            ouYCZX9T6lgRxo9rH7XaCEzK7W/uPIKZLML0JtTc9cEYkYNvxkb8xPspaXtl7lHi
+            XoX7zGoUO2OOQ2gG4wiYAQt1BbuU9KrCpRPTT0m3XOgPm2yKzSx6Z3/Ev88fcpVe
+            ebku6B9cjBl/tkSSP+s1k4dB4yMrkcWXZBRVaPDp6c0nF+Rsq74R7NUrDPSPy+/D
+            qQIDAQAB
+            -----END PUBLIC KEY-----
 
 logging.level.com.tenx.ms.gls: DEBUG
 flyway.locations: classpath:db/migration

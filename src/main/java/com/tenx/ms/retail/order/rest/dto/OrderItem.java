@@ -9,7 +9,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class OrderItem {
 
-
+      @ApiModelProperty("order item id")
+      private Long orderItemId;
 
       @ApiModelProperty("quantity in the stock of this item")
       @Min(value = 0)

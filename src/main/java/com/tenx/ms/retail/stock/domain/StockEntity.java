@@ -49,6 +49,4 @@ public class StockEntity extends AbstractAuditEntity {
     @JoinColumn(name = "product_id", nullable = false, updatable = false, insertable = false)
     private ProductEntity productEntity;
 
-
-
 }

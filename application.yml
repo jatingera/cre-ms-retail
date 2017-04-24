@@ -13,7 +13,7 @@ management.security.enabled: false
 security.basic.enabled: false
 
 server:
-  port: 9222
+  port: 9869
   contextPath: /retail
 
 

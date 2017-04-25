@@ -8,9 +8,8 @@ import javax.validation.constraints.Min;
 @Data
 public class Stock {
 
-
-    @ApiModelProperty("total count in stock")
-    @Min(value = 0)
+    @ApiModelProperty( "total count in stock" )
+    @Min( value = 0 )
     private int count;
 
     public int getCount() {
@@ -20,5 +19,4 @@ public class Stock {
     public void setCount(int count) {
         this.count = count;
     }
-
 }

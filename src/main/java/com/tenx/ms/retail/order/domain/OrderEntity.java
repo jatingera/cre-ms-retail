@@ -20,41 +20,40 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table( name = "orders" )
 @Getter
 @Setter
 public class OrderEntity extends AbstractAuditEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "order_id")
+    @GeneratedValue( strategy = GenerationType.AUTO )
+    @Column( name = "order_id" )
     private Long orderId;
 
-    @Column(name = "store_id")
+    @Column( name = "store_id" )
     private Long storeId;
 
-    @Column(name = "order_date")
+    @Column( name = "order_date" )
     private Timestamp orderDate;
 
-    @Column(name = "order_status")
+    @Column( name = "order_status" )
     @NotNull
-    @Enumerated( EnumType.STRING)
+    @Enumerated( EnumType.STRING )
     private OrderStatusConstant orderStatus;
 
-    @Column(name = "first_name")
+    @Column( name = "first_name" )
     @NotNull
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column( name = "last_name" )
     @NotNull
     private String lastName;
 
-    @Column(name = "email")
+    @Column( name = "email" )
     private String email;
 
-    @Column(name = "phone")
+    @Column( name = "phone" )
     private String phone;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    @OneToMany( cascade = CascadeType.ALL, mappedBy = "order" )
     private List<OrderItemEntity> productItems;
-
 }

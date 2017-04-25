@@ -20,21 +20,20 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Table(name = "store")
+@Table( name = "store" )
 public class StoreEntity extends AbstractAuditEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "store_id")
+    @GeneratedValue( strategy = GenerationType.AUTO )
+    @Column( name = "store_id" )
     private Long id;
 
-    @Column(name = "name")
+    @Column( name = "name" )
     private String name;
 
-    @OneToMany(mappedBy = "storeEntity", cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "storeEntity", cascade = CascadeType.ALL )
     private Set<ProductEntity> productEntitySet;
 
-    @OneToMany(mappedBy = "storeEntity", cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "storeEntity", cascade = CascadeType.ALL )
     private List<StockEntity> stockEntities;
-
 }

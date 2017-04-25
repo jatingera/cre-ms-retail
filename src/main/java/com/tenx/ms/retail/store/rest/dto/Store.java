@@ -8,15 +8,14 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-@ApiModel("Store info")
+@ApiModel( "Store info" )
 public class Store {
 
-    @ApiModelProperty("store id")
+    @ApiModelProperty( "store id" )
     private Long id;
 
-    @ApiModelProperty("store name")
+    @ApiModelProperty( "store name" )
     @NotNull
     @NotBlank
     private String name;
-
-    }
+}

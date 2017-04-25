@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 @Service
 public class StockService {
 
-    private static  final EntityConverter<StockEntity, Stock> STOCK_CONVERTER = new EntityConverter<>(StockEntity.class, Stock.class);
+    private static final EntityConverter<StockEntity, Stock> STOCK_CONVERTER = new EntityConverter<>(StockEntity.class, Stock.class);
 
     @Autowired
     private StockRepository stockRepository;
@@ -25,16 +25,13 @@ public class StockService {
 
     public Stock addUpdateStock(int count, Long storeId, Long productId) {
 
-        StockEntity stockEntity = stockRepository.findOneByProductIdAndStoreId(productId, storeId).orElse(null);
+        StockEntity stockEntity = stockRepository.findOneByProductIdAndStoreId(productId, storeId);
 
-        if(stockEntity != null) {
+        if (stockEntity != null) {
             stockEntity.setCount(count);
             stockRepository.save(stockEntity);
-            //return modelMapper.map(stockEntity, Stock.class);
-            return  STOCK_CONVERTER.toT2(stockEntity);
-        }
-        else
-        {
+             return STOCK_CONVERTER.toT2(stockEntity);
+        } else {
             storeRepository.findOneById(storeId).orElseThrow(() -> new NoSuchElementException("store details not found"));
 
             productRepository.findOneByProductIdAndStoreId(productId, storeId).orElseThrow(() -> new NoSuchElementException("product not exist under this store"));
@@ -43,10 +40,7 @@ public class StockService {
             stock.setStoreId(storeId);
             stock.setProductId(productId);
             stock.setCount(count);
-            return  STOCK_CONVERTER.toT2(stockRepository.save(stock));
-           // return  STOCK_CONVERTER.toT2(stock);
+            return STOCK_CONVERTER.toT2(stockRepository.save(stock));
         }
-
-
     }
 }

@@ -18,7 +18,7 @@ import static com.tenx.ms.retail.util.RetailUtil.isNumeric;
 @Service
 public class ProductService {
 
-    private static  final EntityConverter<ProductEntity, Product> PRODUCT_CONVERTER = new EntityConverter<>(ProductEntity.class, Product.class);
+    private static final EntityConverter<ProductEntity, Product> PRODUCT_CONVERTER = new EntityConverter<>(ProductEntity.class, Product.class);
 
     @Autowired
     private ProductRepository productRepository;
@@ -41,24 +41,17 @@ public class ProductService {
 
         List<Product> productList = productEntities.stream().map(PRODUCT_CONVERTER::toT2).collect(Collectors.toList());
 
-       // Type listType = new TypeToken<List<Product>>() {}.getType();
-      //  List<Product> productList = modelMapper.map(productEntities, listType);
-        return  productList;
+        return productList;
     }
 
     public Product getProductByIdOrName(String productField, Long storeId) {
         ProductEntity productEntity = new ProductEntity();
-        if(isNumeric(productField)) {
-          productEntity = productRepository.findOneByProductIdAndStoreId(Long.valueOf(productField), storeId).orElseThrow(() -> new NoSuchElementException("store and product id not found"));
-        }
-        else
-        {
+        if (isNumeric(productField)) {
+            productEntity = productRepository.findOneByProductIdAndStoreId(Long.valueOf(productField), storeId).orElseThrow(() -> new NoSuchElementException("store and product id not found"));
+        } else {
             productEntity = productRepository.findOneByNameAndStoreId(productField, storeId);
         }
 
         return PRODUCT_CONVERTER.toT2(productEntity);
-       // return modelMapper.map(productEntity, Product.class);
-
     }
-
 }

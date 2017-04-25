@@ -18,35 +18,33 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-//@EqualsAndHashCode(callSuper=false)
-@Table(name = "stock", uniqueConstraints=@UniqueConstraint(columnNames={"store_id", "product_id"}))
+@Table( name = "stock", uniqueConstraints = @UniqueConstraint( columnNames = {"store_id", "product_id"} ) )
 @Getter
 @Setter
 public class StockEntity extends AbstractAuditEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "stock_id")
+    @GeneratedValue( strategy = GenerationType.AUTO )
+    @Column( name = "stock_id" )
     private Long stockId;
 
-    @Column(name = "count")
+    @Column( name = "count" )
     @NumberFormat
     private int count;
 
-    @Column(name = "product_id")
+    @Column( name = "product_id" )
     @NumberFormat
     private Long productId;
 
-    @Column(name = "store_id")
+    @Column( name = "store_id" )
     @NumberFormat
     private Long storeId;
 
-   @ManyToOne(optional = false)
-   @JoinColumn(name = "store_id", nullable = false, updatable = false, insertable = false)
-   private StoreEntity storeEntity;
+    @ManyToOne( optional = false )
+    @JoinColumn( name = "store_id", nullable = false, updatable = false, insertable = false )
+    private StoreEntity storeEntity;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "product_id", nullable = false, updatable = false, insertable = false)
+    @ManyToOne( optional = false )
+    @JoinColumn( name = "product_id", nullable = false, updatable = false, insertable = false )
     private ProductEntity productEntity;
-
 }

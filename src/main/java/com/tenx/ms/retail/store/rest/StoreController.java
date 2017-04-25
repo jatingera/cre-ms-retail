@@ -18,52 +18,47 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(RestConstants.VERSION_ONE+"/stores")
+@RequestMapping( RestConstants.VERSION_ONE + "/stores" )
 public class StoreController {
 
     @Autowired
     private StoreService storeService;
 
-    @ApiOperation("Get the list of stores")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Success"),@ApiResponse(code = 500, message = "Internal service error")})
-    @RequestMapping(method = RequestMethod.GET, consumes = "application/json")
+    @ApiOperation( "Get the list of stores" )
+    @ApiResponses( value = {@ApiResponse( code = 200, message = "Success" ), @ApiResponse( code = 500, message = "Internal service error" )} )
+    @RequestMapping( method = RequestMethod.GET, consumes = "application/json" )
     public List<Store> getAll() {
         return storeService.findAllStores();
     }
 
-    @ApiOperation("create a store")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Store create sucessfully"),
-            @ApiResponse(code = 412, message = "Precondition failiure"),
-            @ApiResponse(code = 500, message = "Internal service error") })
-    @RequestMapping(method = RequestMethod.POST, consumes = { "application/json" })
-    public Store createStore(@ApiParam(name = "store", value = "fields for creating store", required = true) @RequestBody @Validated Store store) {
+    @ApiOperation( "create a store" )
+    @ApiResponses( value = {@ApiResponse( code = 200, message = "Store create sucessfully" ),
+            @ApiResponse( code = 412, message = "Precondition failiure" ),
+            @ApiResponse( code = 500, message = "Internal service error" )} )
+    @RequestMapping( method = RequestMethod.POST, consumes = {"application/json"} )
+    public Store createStore(@ApiParam( name = "store", value = "fields for creating store", required = true ) @RequestBody @Validated Store store) {
 
         return storeService.createStore(store);
     }
 
+    @ApiOperation( "get a store" )
+    @ApiResponses( value = {@ApiResponse( code = 200, message = "store get successfully" ),
+            @ApiResponse( code = 404, message = "Store not found" ),
+            @ApiResponse( code = 500, message = "Internal service error" )} )
+    @RequestMapping( value = "/{storeField}", method = RequestMethod.GET, consumes = {"application/json"} )
+    public Store getStore(@ApiParam( name = "storeField", value = "Name or Id of the store", required = true ) @PathVariable @Validated String storeField) {
 
-
-    @ApiOperation("get a store")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "store get successfully"),
-            @ApiResponse(code = 404, message = "Store not found"),
-            @ApiResponse(code = 500, message = "Internal service error") })
-    @RequestMapping(value = "/{storeField}", method = RequestMethod.GET, consumes = { "application/json" })
-    public Store getStore(@ApiParam(name = "storeField", value = "Name or Id of the store", required = true) @PathVariable @Validated String storeField) {
-
-             return storeService.getStore(storeField);
+        return storeService.getStore(storeField);
     }
 
-    @ApiOperation("Delete a store")
-    @ApiResponses({ @ApiResponse(code = 200, message = "Resource Found"),
-            @ApiResponse(code = 404, message = "Resource Not Found"),
-            @ApiResponse(code = 412, message = "Validation Error"),
-            @ApiResponse(code = 500, message = "Internal Server Error") })
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{storeId}")
+    @ApiOperation( "Delete a store" )
+    @ApiResponses( {@ApiResponse( code = 200, message = "Resource Found" ),
+            @ApiResponse( code = 404, message = "Resource Not Found" ),
+            @ApiResponse( code = 412, message = "Validation Error" ),
+            @ApiResponse( code = 500, message = "Internal Server Error" )} )
+    @RequestMapping( method = RequestMethod.DELETE, value = "/{storeId}" )
     public void delete(
-            @ApiParam(name = "storeId", value = "ID of Store to be deleted") @PathVariable("storeId") Long storeId) {
+            @ApiParam( name = "storeId", value = "ID of Store to be deleted" ) @PathVariable( "storeId" ) Long storeId) {
         storeService.deleteStore(storeId);
     }
-
-
-
 }

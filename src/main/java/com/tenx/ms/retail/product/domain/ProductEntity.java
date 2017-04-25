@@ -19,35 +19,35 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-@Table(name = "product")
+@Table( name = "product" )
 @Getter
 @Setter
 public class ProductEntity extends AbstractAuditEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "product_id")
-    private  Long productId;
+    @GeneratedValue( strategy = GenerationType.AUTO )
+    @Column( name = "product_id" )
+    private Long productId;
 
-    @Column(name = "store_id")
+    @Column( name = "store_id" )
     private Long storeId;
 
-    @Column(name = "description")
+    @Column( name = "description" )
     private String description;
 
-    @Column(name = "sku")
+    @Column( name = "sku" )
     private String sku;
 
-    @Column(name = "price")
+    @Column( name = "price" )
     private Double price;
 
-    @Column(name = "name")
+    @Column( name = "name" )
     private String name;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "store_id", insertable = false,  updatable = false)
+    @ManyToOne( optional = false )
+    @JoinColumn( name = "store_id", insertable = false, updatable = false )
     private StoreEntity storeEntity;
 
-    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "productEntity", cascade = CascadeType.ALL )
     private List<StockEntity> stockEntities;
 }

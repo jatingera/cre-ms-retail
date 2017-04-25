@@ -9,19 +9,18 @@ import javax.validation.constraints.NotNull;
 @Data
 public class OrderItem {
 
-      @ApiModelProperty("order item id")
-      private Long orderItemId;
+    @ApiModelProperty( "order item id" )
+    private Long orderItemId;
 
-      @ApiModelProperty("quantity in the stock of this item")
-      @Min(value = 0)
-      @NotNull
-      private Integer quantity;
+    @ApiModelProperty( "quantity in the stock of this item" )
+    @Min( value = 0 )
+    @NotNull
+    private Integer quantity;
 
-      @ApiModelProperty("product id")
-      @NotNull
-      private Long productId;
+    @ApiModelProperty( "product id" )
+    @NotNull
+    private Long productId;
 
-      @ApiModelProperty("Status of this item")
-      private Boolean isItemBackordered;
-
+    @ApiModelProperty( "Status of this item" )
+    private Boolean isItemBackordered;
 }

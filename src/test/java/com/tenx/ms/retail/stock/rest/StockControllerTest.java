@@ -1,57 +1,63 @@
 package com.tenx.ms.retail.stock.rest;
 
-import com.tenx.ms.commons.rest.RestConstants;
 import com.tenx.ms.retail.rest.BaseControllerTest;
-import org.springframework.beans.factory.annotation.Value;
-import org.junit.FixMethodOrder;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.sql.DataSource;
 import java.io.File;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-
-@FixMethodOrder( MethodSorters.NAME_ASCENDING)
 public class StockControllerTest extends BaseControllerTest {
 
+    @Value( "classpath:product/create_product_valid_request" )
+    private File validProductCreation_1;
 
-   private static final String REQUEST_URI = "%s" + RestConstants.VERSION_ONE + "/stock/2/";
+    @Value( "classpath:store/create_store_valid_request" )
+    private File createStoreValidRequest;
 
-    @Value("classpath:stock/add_new_stock")
+    @Value( "classpath:stock/add_new_stock" )
     private File addStock;
 
-    @Value("classpath:stock/update_stock")
+    @Value( "classpath:stock/update_stock" )
     private File updateStock;
 
+    @Autowired
+    DataSource dataSource;
 
-
-    @Test
-    public void test1AddStock() throws Exception {
-
-        ResponseEntity<String> stockResponse =  getJSONResponse(addStock, REQUEST_URI, HttpMethod.POST,  1L);
-
-        assertNotNull(stockResponse);
-        assertEquals(HttpStatus.OK, stockResponse.getStatusCode());
-
-        // add second product stock
-        ResponseEntity<String> stockResponse2 =  getJSONResponse(addStock, REQUEST_URI, HttpMethod.POST,  2L);
-
-        assertNotNull(stockResponse2);
-        assertEquals(HttpStatus.OK, stockResponse2.getStatusCode());
-
+    @Before
+    public void setUp() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 0;");
+        jdbcTemplate.execute("TRUNCATE TABLE store");
+        jdbcTemplate.execute("TRUNCATE table product");
+        jdbcTemplate.execute("TRUNCATE table stock");
     }
 
     @Test
-    public void test2UpdateStock() throws Exception {
+    public void testAddStock() throws Exception {
 
-        ResponseEntity<String> stockResponse =  getJSONResponse(updateStock, REQUEST_URI, HttpMethod.POST,  1L);
+        createStore(createStoreValidRequest);
 
-        assertNotNull(stockResponse);
-        assertEquals(HttpStatus.OK, stockResponse.getStatusCode());
+        createAndValidateProduct(validProductCreation_1, 1L);
 
+        Long[] storeIdAndProductId = {1L, 1L};
+        addAndUpdateStock(addStock, storeIdAndProductId);
+    }
+
+    @Test
+    public void testUpdateStock() throws Exception {
+
+        createStore(createStoreValidRequest);
+
+        createAndValidateProduct(validProductCreation_1, 1L);
+
+        Long[] storeIdAndProductId = {1L, 1L};
+
+        addAndUpdateStock(addStock, storeIdAndProductId);
+
+        addAndUpdateStock(updateStock, storeIdAndProductId);
     }
 }

@@ -14,42 +14,39 @@ import java.util.List;
 @Data
 public class Order {
 
-    @ApiModelProperty("email")
+    @ApiModelProperty( "email" )
     @NotNull
     @Email
     private String email;
 
-    @ApiModelProperty("first name")
+    @ApiModelProperty( "first name" )
     @NotNull
-    @Pattern(regexp = "[A-Za-z0-9]*")
+    @Pattern( regexp = "[A-Za-z0-9]*" )
     private String firstName;
 
-    @ApiModelProperty("last name")
+    @ApiModelProperty( "last name" )
     @NotNull
-    @Pattern(regexp = "[A-Za-z0-9]*")
+    @Pattern( regexp = "[A-Za-z0-9]*" )
     private String lastName;
 
-    @ApiModelProperty("order id of a store")
-    private  Long orderId;
+    @ApiModelProperty( "order id of a store" )
+    private Long orderId;
 
-    @ApiModelProperty("order date")
+    @ApiModelProperty( "order date" )
     private Timestamp orderDate;
 
-    @ApiModelProperty("phone")
+    @ApiModelProperty( "phone" )
     @NotNull
     @PhoneNumber
     private String phone;
 
-    @ApiModelProperty("status of the order")
+    @ApiModelProperty( "status of the order" )
     private OrderStatusConstant orderStatus;
 
-    @ApiModelProperty(value = "store id associated with this product")
+    @ApiModelProperty( value = "store id associated with this product" )
     private Long storeId;
 
-    @ApiModelProperty(" number or products to be purchased with quanitity and order status of each item.")
+    @ApiModelProperty( " number or products to be purchased with quanitity and order status of each item." )
     @NotNull
     private List<OrderItem> productItems;
-
-
-
 }

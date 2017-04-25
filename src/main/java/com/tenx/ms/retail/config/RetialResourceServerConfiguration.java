@@ -11,14 +11,14 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 
 @Configuration
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-@Profile("!" + Profiles.TEST_NOAUTH)
-@SuppressWarnings({ "PMD.SignatureDeclareThrowsException" })
+@EnableGlobalMethodSecurity( prePostEnabled = true )
+@Profile( "!" + Profiles.TEST_NOAUTH )
+@SuppressWarnings( {"PMD.SignatureDeclareThrowsException"} )
 public class RetialResourceServerConfiguration extends ResourceServerConfiguration {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-       // http.csrf().disable().authorizeRequests().antMatchers("/**").permitAll();
+        // http.csrf().disable().authorizeRequests().antMatchers("/**").permitAll();
         http.csrf().disable().authorizeRequests().antMatchers("/**").authenticated();
     }
 
@@ -26,5 +26,4 @@ public class RetialResourceServerConfiguration extends ResourceServerConfigurati
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.resourceId(null).tokenStore(tokenStore());
     }
-
 }

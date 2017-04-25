@@ -12,10 +12,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  * Spring Boot Application Initialization class for retail MicroService
  */
 //@EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {"com.tenx.ms.commons", "com.tenx.ms.retail"})
-@SuppressWarnings("PMD.UseUtilityClass")
+@SpringBootApplication( scanBasePackages = {"com.tenx.ms.commons", "com.tenx.ms.retail"} )
+@SuppressWarnings( "PMD.UseUtilityClass" )
 @Configuration
-@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
+@EnableJpaAuditing( auditorAwareRef = "springSecurityAuditorAware" )
 public class RetailServiceApp {
 
     /**
@@ -24,7 +24,7 @@ public class RetailServiceApp {
     private static String[] getDefaultProfile(String[] args) {
         SimpleCommandLinePropertySource properties = new SimpleCommandLinePropertySource(args);
         if (!properties.containsProperty("spring.profiles.active") && System.getenv("SPRING_PROFILES_ACTIVE") == null) {
-            return new String[] { "dev" };
+            return new String[]{"dev"};
         }
         return new String[0];
     }

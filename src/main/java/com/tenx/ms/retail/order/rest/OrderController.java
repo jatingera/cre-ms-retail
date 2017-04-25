@@ -16,23 +16,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = RestConstants.VERSION_ONE+"/orders/{storeId}")
+@RequestMapping( value = RestConstants.VERSION_ONE + "/orders/{storeId}" )
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @ApiOperation("create a new order")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Store create sucessfully"),
-            @ApiResponse(code = 412, message = "Precondition failiure"),
-            @ApiResponse(code = 500, message = "Internal service error") })
-    @RequestMapping(method = RequestMethod.POST, consumes = { "application/json" })
-    public Order createOrder(@ApiParam(name = "storeId", value = "store id for the order") @PathVariable Long storeId,
-    @ApiParam(name = "order", required = true, value = "Request of new order") @Validated
-    @RequestBody Order order) {
+    @ApiOperation( "create a new order" )
+    @ApiResponses( value = {@ApiResponse( code = 200, message = "Store create sucessfully" ),
+            @ApiResponse( code = 412, message = "Precondition failiure" ),
+            @ApiResponse( code = 500, message = "Internal service error" )} )
+    @RequestMapping( method = RequestMethod.POST, consumes = {"application/json"} )
+    public Order createOrder(
+            @ApiParam( name = "storeId", value = "store id for the order" ) @PathVariable Long storeId,
+            @ApiParam( name = "order", required = true, value = "Request of new order" ) @Validated
+            @RequestBody Order order) {
         return orderService.createOrder(storeId, order);
-
     }
-
-
 }

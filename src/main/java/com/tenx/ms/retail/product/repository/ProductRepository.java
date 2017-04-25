@@ -8,15 +8,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProductRepository extends JpaRepository<ProductEntity, Long>{
+public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
-   List<ProductEntity> findByStoreId(Long storeId);
+    List<ProductEntity> findByStoreId(Long storeId);
 
-   ProductEntity findByName(String name);
+    ProductEntity findByName(String name);
 
-   Optional<ProductEntity> findOneByProductIdAndStoreId(Long productId, Long storeId);
+    Optional<ProductEntity> findOneByProductIdAndStoreId(Long productId, Long storeId);
 
-   ProductEntity findOneByNameAndStoreId(String name, Long storeId);
-
-
+    ProductEntity findOneByNameAndStoreId(String name, Long storeId);
 }

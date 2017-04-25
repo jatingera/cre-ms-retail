@@ -17,50 +17,42 @@ import static com.tenx.ms.retail.util.RetailUtil.isNumeric;
 @Service
 public class StoreService {
 
-    private static  final EntityConverter<StoreEntity, Store> STORE_CONVERTER = new EntityConverter<>(StoreEntity.class, Store.class);
-
+    private static final EntityConverter<StoreEntity, Store> STORE_CONVERTER = new EntityConverter<>(StoreEntity.class, Store.class);
 
     @Autowired
     private StoreRepository storeRepository;
 
-   // @Autowired
-    //private CurrentAuthentication currentAuthentication;
-
     @Transactional
-   public Store createStore(Store store) {
+    public Store createStore(Store store) {
 
-       StoreEntity storeEntity = STORE_CONVERTER.toT1(store);
+        StoreEntity storeEntity = STORE_CONVERTER.toT1(store);
 
-       return  STORE_CONVERTER.toT2(storeRepository.save(storeEntity));
+        return STORE_CONVERTER.toT2(storeRepository.save(storeEntity));
     }
 
     public List<Store> findAllStores() {
 
-        List<StoreEntity>  storeEntities = storeRepository.findAll();
+        List<StoreEntity> storeEntities = storeRepository.findAll();
 
         return storeEntities.stream().map(STORE_CONVERTER::toT2).collect(Collectors.toList());
-
-
     }
 
     public Store getStore(String store) {
 
-       StoreEntity storeEntity = null;
+        StoreEntity storeEntity = null;
 
         if (isNumeric(store)) {
             storeEntity = storeRepository.findOneById(Long.valueOf(store)).orElseThrow(() -> new NoSuchElementException("No store found with this id " + store));
-           return STORE_CONVERTER.toT2(storeEntity);
-          //  return modelMapper.map(storeEntity, Store.class);
+            return STORE_CONVERTER.toT2(storeEntity);
+            //  return modelMapper.map(storeEntity, Store.class);
         } else {
-            storeEntity =  storeRepository.findOneByName(store).orElseThrow(() -> new NoSuchElementException("No store found with this name "+ store));
-           // return modelMapper.map(storeEntity, Store.class);
+            storeEntity = storeRepository.findOneByName(store).orElseThrow(() -> new NoSuchElementException("No store found with this name " + store));
+            // return modelMapper.map(storeEntity, Store.class);
             return STORE_CONVERTER.toT2(storeEntity);
         }
-
     }
 
     public void deleteStore(Long storeId) {
         storeRepository.delete(storeId);
     }
-
 }

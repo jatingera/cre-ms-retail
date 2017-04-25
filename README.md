@@ -17,13 +17,13 @@ This is tailored around our typical development machines (Windows and Mac) using
 
 **Building a local DEV image**
 - Build: `./mvn clean package docker:build`
-- Run: `docker run -p 9222:9222 registry.prod.auction.local:5000/cre-ms-retail:DEV`
+- Run: `docker run -p 9869:9869 registry.prod.auction.local:5000/cre-ms-retail:DEV`
 
 **Using the CI official built image**
 
 To use an image built by our CI system the command is nearly identical but without the `:DEV` tag at the end
 
-- Run: `docker run -p 9222:9222 registry.prod.auction.local:5000/cre-ms-retail`
+- Run: `docker run -p 9869:9869 registry.prod.auction.local:5000/cre-ms-retail`
 
 Technologies:
 ----

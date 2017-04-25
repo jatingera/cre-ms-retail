@@ -1,5 +1,6 @@
 package com.tenx.ms.retail;
 
+import com.tenx.ms.commons.testrun.EnableTestRun;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -16,6 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SuppressWarnings( "PMD.UseUtilityClass" )
 @Configuration
 @EnableJpaAuditing( auditorAwareRef = "springSecurityAuditorAware" )
+@EnableTestRun
 public class RetailServiceApp {
 
     /**
